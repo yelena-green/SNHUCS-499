@@ -1,2 +1,3 @@
-# SNHUCS-499
-SNHU CS-499 Capstone Project
+# SNHU CS-499 Computer Science Capstone Project
+## Intro
+## Project Enhancements
