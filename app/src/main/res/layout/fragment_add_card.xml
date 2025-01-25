@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddCardFragment"
+    android:padding="16dp">
+
+    <!-- Occasion Dropdown -->
+    <TextView
+        android:id="@+id/labelOccasion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/in_card_occasion"
+        app:layout_constraintTop_toBottomOf="@id/editTextCardName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <Spinner
+        android:id="@+id/spinnerOccasion"
+        android:layout_width="268dp"
+        android:layout_height="48dp"
+        android:entries="@array/occasion_array"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelOccasion"
+        app:layout_constraintWidth_percent="1.0" />
+
+    <!-- Card Name TextBox -->
+    <TextView
+        android:id="@+id/labelCardName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:importantForAutofill="no"
+        android:text="@string/in_cardName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextCardName"
+        android:layout_width="274dp"
+        android:layout_height="48dp"
+        android:hint="@string/hint_enter_card_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelCardName"
+        android:inputType="text"
+        app:layout_constraintWidth_percent="1.0" />
+
+
+
+    <!-- Quantity TextBox -->
+    <TextView
+        android:id="@+id/labelQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/in_quantity"
+        app:layout_constraintTop_toBottomOf="@id/spinnerOccasion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/editTextQuantity"
+        android:layout_width="128dp"
+        android:layout_height="48dp"
+        android:inputType="number"
+        android:hint="@string/hint_enter_card_qty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelQuantity"
+        app:layout_constraintWidth_percent="1.0" />
+
+    <!-- Add Button -->
+    <Button
+        android:id="@+id/buttonAddCard"
+        style="@style/CustomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        android:text="@string/btn_add_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextQuantity" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CardGrove" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/gold</item>
+        <item name="colorPrimaryDark">@color/dark_green</item>
+        <item name="colorAccent">@color/gold</item>
+        <item name="buttonStyle">@style/CustomButton</item>
+        <item name="editTextStyle">@style/CustomTextBox</item>
+
+    </style>
+
+    <style name="Theme.CardGrove" parent="Base.Theme.CardGrove" />
+</resources>

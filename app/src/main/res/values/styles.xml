@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Custom button style -->
+    <style name="CustomButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/buttons_style</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">serif</item>
+    </style>
+
+    <!-- Custom text box style -->
+    <style name="CustomTextBox" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/text_boxes_style</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:minHeight">50dp</item>
+    </style>
+
+    <!-- Custom toolbar style -->
+    <style name="CustomToolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/dark_green</item>
+        <item name="android:titleTextColor">@color/white</item>
+        <item name="android:subtitleTextColor">@color/white</item>
+    </style>
+
+</resources>

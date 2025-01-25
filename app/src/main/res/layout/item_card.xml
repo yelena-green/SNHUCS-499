@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:gravity="center_vertical">
+
+    <!-- Card Type Icon -->
+    <ImageView
+        android:id="@+id/cardTypeIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/card_desc"
+        android:src="@drawable/ic_card_birthday" />
+
+    <!-- Card Name -->
+    <TextView
+        android:id="@+id/cardName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="@string/card_name"
+        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+    <!-- Increase Count Icon -->
+    <ImageView
+        android:id="@+id/increaseCountIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/increase_count_icon"
+        android:src="@drawable/ic_plus" />
+
+    <!-- Inventory Count -->
+    <TextView
+        android:id="@+id/inventoryCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+    <!-- Reduce Count Icon -->
+    <ImageView
+        android:id="@+id/reduceCountIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/reduce_count_icon"
+        android:src="@drawable/ic_minus" />
+
+    <!-- Delete Card Icon -->
+    <ImageView
+        android:id="@+id/deleteCardIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/delete_card_icon"
+        android:src="@drawable/ic_delete" />
+
+</LinearLayout>

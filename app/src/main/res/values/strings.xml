@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">CardGrove</string>
+    <string name="logo_desc">CardGroveLogo</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="login">Login</string>
+    <string name="create_account">Create Account</string>
+
+    <!-- Card Inventory Grid icons -->
+    <string name="delete_card_icon">Delete Card</string>
+    <string name="reduce_count_icon">Reduce Count Card</string>
+    <string name="increase_count_icon">Increase Count Card</string>
+    <string name="btn_add_card">Add Card</string>
+    <string name="in_quantity">Quantity</string>
+    <string name="in_cardName">Enter Card Name</string>
+    <string name="hint_enter_card_name">Enter Card name</string>
+    <string name="hint_enter_card_qty">Qty</string>
+    <string name="in_card_occasion">Select Card Occasion</string>
+    <string name="txt_SMS_permissions">CardGrove app requires permission to send SMS notifications to keep your inventory stocked!</string>
+    <string name="btn_grant_permission">Grant Permission</string>
+    <string name="btn_revoke_permission">Revoke Permission</string>
+    <string name="card_desc">card type</string>
+    <string name="card_name">Card Name</string>
+    <string name="_0">0</string>
+
+    <!-- Card Occasions Array -->
+    <string-array name="occasion_array">
+        <item>Birthday</item>
+        <item>Thank you</item>
+        <item>Get well</item>
+        <item>Anniversary</item>
+        <item>Other</item>
+    </string-array>
+
+</resources>
