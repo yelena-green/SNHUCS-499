@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">CardGrove</string>
     <string name="logo_desc">CardGroveLogo</string>
-    <string name="username_hint">Username</string>
+    <string name="username_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="login">Login</string>
     <string name="create_account">Create Account</string>
+    <string name="forgot_password">Forgot Password?</string>
 
     <!-- Card Inventory Grid icons -->
     <string name="delete_card_icon">Delete Card</string>
@@ -22,6 +23,10 @@
     <string name="card_desc">card type</string>
     <string name="card_name">Card Name</string>
     <string name="_0">0</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="back_to_login">Back to Login</string>
+    <string name="enter_your_new_password">Enter your new password</string>
 
     <!-- Card Occasions Array -->
     <string-array name="occasion_array">

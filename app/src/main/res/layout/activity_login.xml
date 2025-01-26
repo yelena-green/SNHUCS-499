@@ -18,7 +18,7 @@
         android:contentDescription="@string/logo_desc"
         android:src="@drawable/logo_small"
         android:background="@drawable/border_style"
-        app:layout_constraintBottom_toTopOf="@id/usernameEditText"
+        app:layout_constraintBottom_toTopOf="@id/emailEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
 
     <!-- Username EditText -->
     <EditText
-        android:id="@+id/usernameEditText"
+        android:id="@+id/emailEditText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -52,7 +52,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/usernameEditText"
+        app:layout_constraintTop_toBottomOf="@id/emailEditText"
         app:layout_constraintWidth_percent="0.8" />
 
 
@@ -83,6 +83,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginButton"
         app:layout_constraintWidth_percent="0.8" />
+
+    <!-- Forgot Password Text -->
+    <TextView
+        android:id="@+id/forgotPasswordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/forgot_password"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/createAccountButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
