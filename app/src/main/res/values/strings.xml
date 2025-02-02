@@ -37,4 +37,12 @@
         <item>Other</item>
     </string-array>
 
+    <!-- Card Sorting Options -->
+    <string-array name="sort_options">
+        <item>Name</item>
+        <item>Type</item>
+        <item>Inventory Count</item>
+    </string-array>
+
+
 </resources>
