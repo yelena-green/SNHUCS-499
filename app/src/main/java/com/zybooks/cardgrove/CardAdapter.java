@@ -1,3 +1,11 @@
+/**
+ * SNHU CS-499 Software Capstone Project
+ * Author: Yelena Green
+ * Purpose: This class serves as the RecyclerView adapter for displaying the card inventory.
+ * It binds data from the SQLite database to the RecyclerView, handles UI interactions,
+ * and allows sorting and filtering of card data.
+ */
+
 package com.zybooks.cardgrove;
 
 import android.annotation.SuppressLint;
@@ -11,12 +19,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * Adapter for displaying card inventory in a RecyclerView.
+ * Handles UI updates and user interactions for modifying card inventory.
+ */
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
 
     private final Context context;
     private Cursor cursor;
     private final OnItemClickListener listener;
 
+    /**
+     * Interface for handling user interactions such as clicking and modifying inventory.
+     */
     public interface OnItemClickListener {
         void onItemClick(int position);
         void onReduceClick(int position);
@@ -24,12 +39,22 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         void onIncreaseClick(int position);
     }
 
+    /**
+     * Constructor for initializing the adapter.
+     *
+     * @param context  The application context.
+     * @param cursor   The cursor containing card inventory data.
+     * @param listener The listener for handling user actions on cards.
+     */
     public CardAdapter(Context context, Cursor cursor, OnItemClickListener listener) {
         this.context = context;
         this.cursor = cursor;
         this.listener = listener;
     }
 
+    /**
+     * Inflates the item layout and returns a new CardViewHolder instance.
+     */
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,17 +62,22 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         return new CardViewHolder(view, listener);
     }
 
+    /**
+     * Binds data from the database to the RecyclerView item view.
+     */
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         if (!cursor.moveToPosition(position)) {
-            return;
+            return; // Prevents crashes if cursor moves out of bounds
         }
 
+        // Retrieve card details from database
         String cardName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
         String cardType = cursor.getString(cursor.getColumnIndexOrThrow("type"));
         int cardQuantity = cursor.getInt(cursor.getColumnIndexOrThrow("qty"));
         long id = cursor.getLong(cursor.getColumnIndexOrThrow("item_id"));
 
+        // Set UI elements with retrieved data
         int iconResId = getCardTypeIcon(cardType);
         holder.cardTypeIcon.setImageResource(iconResId);
         holder.cardName.setText(cardName);
@@ -55,22 +85,33 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         holder.itemView.setTag(id);
     }
 
+    /**
+     * Returns the number of items in the dataset.
+     */
     @Override
     public int getItemCount() {
         return cursor.getCount();
     }
 
+    /**
+     * Updates the adapter with a new Cursor containing updated card data.
+     *
+     * @param newCursor The new Cursor with updated inventory data.
+     */
     @SuppressLint("NotifyDataSetChanged")
     public void swapCursor(Cursor newCursor) {
         if (cursor != null) {
-            cursor.close();
+            cursor.close(); // Close the previous cursor to free resources
         }
         cursor = newCursor;
         if (newCursor != null) {
-            notifyDataSetChanged(); // Replace with more specific change events if possible
+            notifyDataSetChanged(); // Refresh the RecyclerView with new data
         }
     }
 
+    /**
+     * ViewHolder class for holding and binding UI elements for each card item.
+     */
     public static class CardViewHolder extends RecyclerView.ViewHolder {
         public final ImageView cardTypeIcon;
         public final TextView cardName;
@@ -79,6 +120,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         public final ImageView deleteCardIcon;
         public final ImageView increaseCountIcon;
 
+        /**
+         * Initializes the UI components and sets up event listeners.
+         *
+         * @param view     The view representing a single card item.
+         * @param listener The listener for handling user actions.
+         */
         public CardViewHolder(View view, final OnItemClickListener listener) {
             super(view);
             cardTypeIcon = view.findViewById(R.id.cardTypeIcon);
@@ -88,6 +135,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             deleteCardIcon = view.findViewById(R.id.deleteCardIcon);
             increaseCountIcon = view.findViewById(R.id.increaseCountIcon);
 
+            // Set click listeners for each action (Reduce, Delete, Increase)
             reduceCountIcon.setOnClickListener(v -> {
                 if (listener != null) {
                     int position = getAdapterPosition();
@@ -126,7 +174,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         }
     }
 
-    //Function to display different icons in the inventory grid based on the card type/occasion
+    /**
+     * Returns the appropriate icon resource ID based on the card type.
+     *
+     * @param cardType The type of the card (e.g., "Birthday", "Thank You").
+     * @return The corresponding drawable resource ID for the card type.
+     */
     private int getCardTypeIcon(String cardType) {
         switch (cardType) {
             case "Birthday":
@@ -138,7 +191,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             case "Anniversary":
                 return R.drawable.ic_card_anniversary;
             default:
-                return R.drawable.ic_card_other; //Other icon used as default
+                return R.drawable.ic_card_other; // Default icon for other card types
         }
     }
 }
