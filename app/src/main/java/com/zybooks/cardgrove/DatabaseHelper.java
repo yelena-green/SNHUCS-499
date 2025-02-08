@@ -10,19 +10,26 @@ package com.zybooks.cardgrove;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import net.sqlcipher.database.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteOpenHelper;
+import java.security.SecureRandom;
+
 
 /**
  * SQLite database helper for managing users and card inventory.
  */
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper extends  SQLiteOpenHelper {
 
     // Database constants
     private static final String DATABASE_NAME = "CardGrove.db";
     private static final int DATABASE_VERSION = 2;
+    private static final String PREFS_NAME = "CardGrovePrefs";
+    private static final String KEY_PASSPHRASE = "db_passphrase";
+
+    private final Context mContext;
 
     // Users table constants
     private static final String TABLE_USERS = "Users";
@@ -39,14 +46,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ITEM_QUANTITY = "qty";
 
     /**
-     * Constructor: Initializes the SQLiteOpenHelper with the app's context.
+     * Constructor: Initializes the SQLiteOpenHelper with encryption.
      *
      * @param context Application context for database access.
      */
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        SQLiteDatabase.loadLibs(context); // Required for SQLCipher
+        this.mContext = context;
     }
-
     /**
      * Called when the database is created for the first time.
      * Creates the Users and Inventory tables.
@@ -69,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_ITEM_QUANTITY + " INTEGER" + ")";
         db.execSQL(CREATE_INVENTORY_TABLE);
 
-        // Insert default admin user
+        // Insert default admin user (password should be encrypted in real use)
         ContentValues values = new ContentValues();
         values.put(COLUMN_EMAIL, "admin");
         values.put(COLUMN_PASSWORD, "admin");
@@ -90,6 +98,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_INVENTORY);
         onCreate(db);
     }
+    /* Retrieves a secure passphrase */
+    private String getDatabasePassphrase() {
+        SharedPreferences prefs = mContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String passphrase = prefs.getString(KEY_PASSPHRASE, null);
+
+        if (passphrase == null) {
+            passphrase = generateSecurePassphrase();
+            prefs.edit().putString(KEY_PASSPHRASE, passphrase).apply();
+        }
+
+        return passphrase;
+    }
+
+    /* Generates a secure random passphrase */
+    private String generateSecurePassphrase() {
+        SecureRandom random = new SecureRandom();
+        byte[] key = new byte[32]; // 256-bit key
+        random.nextBytes(key);
+        return android.util.Base64.encodeToString(key, android.util.Base64.DEFAULT);
+
+    }
+
+    /* Opens an encrypted database automatically using the secure passphrase */
+    public SQLiteDatabase getEncryptedDatabase() {
+        return getWritableDatabase(getDatabasePassphrase());
+    }
 
     // ============================= User Table Operations =============================
 
@@ -97,7 +131,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Adds a new user to the Users table.
      */
     public boolean addUser(String email, String password) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getEncryptedDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_EMAIL, email);
         values.put(COLUMN_PASSWORD, password);
@@ -111,14 +145,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Verifies if a user exists with the given email and password.
      */
     public boolean checkUser(String email, String password) {
-        return checkIfExists(TABLE_USERS, COLUMN_EMAIL + " = ? AND " + COLUMN_PASSWORD + " = ?", new String[]{email, password});
+        return checkIfExists(COLUMN_EMAIL + " = ? AND " + COLUMN_PASSWORD + " = ?", new String[]{email, password});
     }
 
     /**
      * Checks if an email already exists in the Users table.
      */
     public boolean checkEmailExists(String email) {
-        return checkIfExists(TABLE_USERS, COLUMN_EMAIL + " = ?", new String[]{email});
+        return checkIfExists(COLUMN_EMAIL + " = ?", new String[]{email});
     }
 
     /**
@@ -139,7 +173,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Updates a user's password with a temporary or permanent status.
      */
     private boolean updatePassword(String email, String newPassword, int isTemporary) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getEncryptedDatabase();
+
         ContentValues values = new ContentValues();
         values.put(COLUMN_PASSWORD, newPassword);
         values.put(COLUMN_IS_TEMPORARY, isTemporary);
@@ -155,7 +190,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return True if the password is temporary, false otherwise.
      */
     public boolean isTemporaryPassword(String email) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getEncryptedDatabase();
         Cursor cursor = db.query(TABLE_USERS, new String[]{COLUMN_IS_TEMPORARY},
                 COLUMN_EMAIL + " = ?", new String[]{email}, null, null, null);
 
@@ -177,7 +212,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Adds a new inventory item to the Inventory table.
      */
     public boolean addItem(String type, String name, int qty) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getEncryptedDatabase();
+
         ContentValues values = new ContentValues();
         values.put(COLUMN_ITEM_TYPE, type);
         values.put(COLUMN_ITEM_NAME, name);
@@ -189,9 +225,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Updates an existing inventory item.
+     * Currently not used.
      */
     public boolean updateItem(int itemId, String type, String name, int qty) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getEncryptedDatabase();
+
         ContentValues values = new ContentValues();
         values.put(COLUMN_ITEM_TYPE, type);
         values.put(COLUMN_ITEM_NAME, name);
@@ -205,7 +243,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Deletes an inventory item.
      */
     public boolean deleteItem(int itemId) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getEncryptedDatabase();
+
         int result = db.delete(TABLE_INVENTORY, COLUMN_ITEM_ID + "=?", new String[]{String.valueOf(itemId)});
         db.close();
         return result > 0;
@@ -215,7 +254,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Retrieves all inventory items.
      */
     public Cursor getAllItems() {
-        return executeQuery("SELECT * FROM " + TABLE_INVENTORY);
+        SQLiteDatabase db = this.getEncryptedDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_INVENTORY, null);
     }
 
     /**
@@ -225,7 +265,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return Cursor containing the sorted inventory records.
      */
     public Cursor getSortedCards(String criteria) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getEncryptedDatabase();
         String orderBy;
 
         // Ensure criteria maps to actual database column names
@@ -255,18 +295,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Retrieves inventory items filtered by name.
      */
     public Cursor getFilteredCardsByName(String nameQuery) {
-        return executeQuery("SELECT * FROM " + TABLE_INVENTORY + " WHERE " + COLUMN_ITEM_NAME + " LIKE ? ORDER BY " + COLUMN_ITEM_NAME + " ASC", new String[]{"%" + nameQuery + "%"});
+        SQLiteDatabase db = this.getEncryptedDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_INVENTORY + " WHERE " + COLUMN_ITEM_NAME + " LIKE ? ORDER BY " + COLUMN_ITEM_NAME + " ASC", new String[]{"%" + nameQuery + "%"});
     }
 
     // ============================= Helper Methods =============================
 
-    private Cursor executeQuery(String query, String... args) {
-        SQLiteDatabase db = this.getReadableDatabase();
+    private Cursor executeQuery(String query, String passphrase, String... args) {
+        SQLiteDatabase db = this.getReadableDatabase(passphrase);
         return db.rawQuery(query, args);
     }
 
-    private boolean checkIfExists(String table, String selection, String[] args) {
-        Cursor cursor = executeQuery("SELECT 1 FROM " + table + " WHERE " + selection + " LIMIT 1", args);
+    private boolean checkIfExists(String selection, String[] args) {
+        SQLiteDatabase db = this.getEncryptedDatabase();
+        Cursor cursor = db.rawQuery("SELECT 1 FROM " + DatabaseHelper.TABLE_USERS + " WHERE " + selection + " LIMIT 1", args);
         boolean exists = cursor.moveToFirst();
         cursor.close();
         return exists;

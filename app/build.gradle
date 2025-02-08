@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-
+    implementation libs.sqlcipher
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
@@ -38,4 +38,6 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    implementation 'net.zetetic:android-database-sqlcipher:4.5.4'
+    implementation 'androidx.sqlite:sqlite:2.2.0'
 }
