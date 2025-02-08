@@ -1,1 +1,4 @@
-theme: minima
+theme: jekyll-theme-architect
+title: Yelena Green ePortfolio
+description: SNHU CS499 - Computer Science Capstone
+show_downloads: false
