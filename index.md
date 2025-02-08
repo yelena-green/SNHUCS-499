@@ -4,11 +4,16 @@ title: My Portfolio
 ---
 
 # Welcome to My ePortfolio
-This is my CS 499 Capstone ePortfolio.
+Hello, my name is Yelena Green, and this is my Computer Science Capstone project portfolio at SNHU!
 
-## Projects
-- [CS 465 Full-Stack App](https://github.com/yelena-green/cs465-fullstack)
+## Table of content
+- [Professional Self-Assessment](#self-assessment "Professional Self-Assessment")<br/>
+- [Code Review](https://youtu.be/LaLaTJtTJJw)
+- Enhancement One: Software Design and Engineering
+- Enhancement Two: Algorithms and Data Structures
+- Enhancement Three: Databases
+- Project artifacts
+
+## Project artifacts
 - [CS 499 Capstone Project](https://github.com/yelena-green/cs499-capstone)
-
-## About Me
-I am a software engineer passionate about mobile and full-stack development.
+- [CS 360 Mobile Application Development Project](https://github.com/yelena-green/cs-360)
