@@ -3,12 +3,6 @@ layout: default
 title: CS-499 Computer Science Capstone ePortfolio
 ---
 
-# Welcome to My ePortfolio
-Hello, my name is **Yelena Green**, and this is my Computer Science Capstone project portfolio at SNHU!
-
-This portfolio showcases my work and the enhancements I made in **software design, algorithms, and databases**.
-
----
 
 ## 📌 Table of Contents
 {: .no_toc }
@@ -19,6 +13,8 @@ This portfolio showcases my work and the enhancements I made in **software desig
 ---
 
 ## 🔍 Professional Self-Assessment {#self-assessment}
+Hello, my name is **Yelena Green**, and this is my Computer Science Capstone project portfolio at SNHU!
+This portfolio showcases my work and the enhancements I made in **software design, algorithms, and databases**.
 This section will include my **professional self-assessment**, highlighting my growth, technical skills, and key learnings during the CS-499 Capstone course.
 
 ---
