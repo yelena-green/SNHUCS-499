@@ -4,7 +4,7 @@ title: CS-499 Computer Science Capstone ePortfolio
 ---
 
 
-## 📌 Table of Contents
+## 📌 Table of Contents {#toc}
 {: .no_toc }
 
 1. TOC
