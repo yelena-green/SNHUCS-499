@@ -102,7 +102,7 @@ These are the main project repositories:
 
 - 📱 **[Final Project with enhancements](https://github.com/yelena-green/snhucs-499)**
   - 📂 **[Enhancements Details](https://github.com/yelena-green/SNHUCS-499/tree/main/Documents)**
-- 📲 **[Oringal artifact - Mobile application CardGrove](https://github.com/yelena-green/cs-360)**
+- 📲 **[Oringal artifact - Mobile application CardGrove](https://github.com/yelena-green/snhucs-360)**
 
 [Back to Table of Contents](#toc)
 
