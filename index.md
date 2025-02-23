@@ -100,7 +100,7 @@ This enhancement strengthened my **technical skills in Android development and s
 ## 📂 Project Artifacts
 These are the main project repositories:
 
-- 📱 **[Final Project with enhancements](https://github.com/yelena-green/cs499-capstone)**
+- 📱 **[Final Project with enhancements](https://github.com/yelena-green/snhucs-499)**
   - 📂 **[Enhancements Details](https://github.com/yelena-green/SNHUCS-499/tree/main/Documents)**
 - 📲 **[Oringal artifact - Mobile application CardGrove](https://github.com/yelena-green/cs-360)**
 
