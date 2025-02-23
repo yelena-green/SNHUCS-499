@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CS-499 Computer Science Capstone ePortfolio
+title: Yelena Green: CS-499 Computer Science Capstone ePortfolio
 ---
 
 
